@@ -12,11 +12,12 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css" />
 </head>
 
 <body>
   <!-- Navbar -->
-  <header class="navbar">
+  <header class="navbar" id="navbar">
     <div class="logo">The Midnight Roast</div>
     <nav class="nav-links">
       <a href="#about">Our Story</a>
@@ -31,155 +32,191 @@
     </button>
   </header>
 
-  <main id="app">
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-      <div class="hero-bg"></div>
-      <div class="hero-content">
-        <h1>Escape the Rush.<br>Find Your Roast.</h1>
-        <p>Artisanal coffee in the heart of downtown. Crafted with passion, served with soul.</p>
-        <a href="#menu" class="btn btn-primary">View Today’s Menu</a>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1>The Midnight Roast</h1>
+      <p>Artisanal coffee sustainably sourced and perfectly roasted to awaken your senses.</p>
+      <a href="#menu" class="btn btn-primary">Explore Menu</a>
+    </div>
+  </section>
+  <!-- About Section -->
+  <section id="about" class="about reveal">
+    <div class="about-container">
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=1000&auto=format&fit=crop"
+          alt="Coffee roasting process showing beans being roasted" loading="lazy">
       </div>
-    </section>
+      <div class="about-content">
+        <h2>Our Story &amp; Ethos</h2>
+        <p>At The Midnight Roast, we believe that every cup of coffee tells a story. From the high-altitude farms
+          where our beans are ethically sourced, to the meticulous roasting process in our downtown industrial space.
+        </p>
+        <p>Our commitment is not just to unparalleled quality, but to the community and environment that sustains us.
+          We partner directly with farmers to ensure fair wages and sustainable agricultural practices.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- About Section -->
-    <section id="about" class="about reveal">
-      <div class="about-container">
-        <div class="about-image">
-          <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=1000&auto=format&fit=crop"
-            alt="Coffee roasting process showing beans being roasted" loading="lazy">
+  <!-- Menu Section -->
+  <section id="menu" class="menu reveal">
+    <div class="section-header">
+      <h2>Seasonal Menu</h2>
+      <p>Curated selections highlighting the finest roasts.</p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <h3>Midnight Mocha</h3>
+          <span class="price">200rs</span>
         </div>
-        <div class="about-content">
-          <h2>Our Story & Ethos</h2>
-          <p>At The Midnight Roast, we believe that every cup of coffee tells a story. From the high-altitude farms
-            where our beans are ethically sourced, to the meticulous roasting process in our downtown industrial space.
-          </p>
-          <p>Our commitment is not just to unparalleled quality, but to the community and environment that sustains us.
-            We partner directly with farmers to ensure fair wages and sustainable agricultural practices.</p>
-        </div>
+        <p>Dark chocolate, espresso, and a hint of smoked sea salt.</p>
       </div>
-    </section>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <h3>Maple Bourbon Latte</h3>
+          <span class="price">350rs</span>
+        </div>
+        <p>Real Vermont maple syrup with a wood-fired finish.</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <h3>The Cold Brew Flight</h3>
+          <span class="price">450rs</span>
+        </div>
+        <p>Four 4oz pours of our rotating single-origin roasts.</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <h3>Espresso Tonic</h3>
+          <span class="price">220rs</span>
+        </div>
+        <p>A double shot of espresso over sparkling tonic water with a citrus twist.</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <h3>Cardamom Cloud</h3>
+          <span class="price">280rs</span>
+        </div>
+        <p>Spiced cardamom latte topped with a silky oat milk foam and saffron dust.</p>
+      </div>
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <h3>Nitro Cold Brew</h3>
+          <span class="price">320rs</span>
+        </div>
+        <p>Smooth, velvety cold brew infused with nitrogen for a natural creamy sweetness.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- Menu Section -->
-    <section id="menu" class="menu reveal">
-      <div class="section-header">
-        <h2>Seasonal Menu</h2>
-        <p>Curated selections highlighting the finest roasts.</p>
+  <!-- Gallery Section -->
+  <section id="gallery" class="gallery reveal">
+    <div class="section-header">
+      <h2>The Vibe</h2>
+      <p>Industrial Chic meeting downtown warmth.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1579992357154-faf4bde95b3d?q=80&w=1000&auto=format&fit=crop"
+          alt="Close-up of Rosetta latte art in a matte black ceramic mug" loading="lazy">
       </div>
-      <div class="menu-grid">
-        <!-- Item 1 -->
-        <div class="menu-item">
-          <div class="menu-item-header">
-            <h3>Midnight Mocha</h3>
-            <span class="price">200rs</span>
-          </div>
-          <p>Dark chocolate, espresso, and a hint of smoked sea salt.</p>
-        </div>
-        <!-- Item 2 -->
-        <div class="menu-item">
-          <div class="menu-item-header">
-            <h3>Maple Bourbon Latte</h3>
-            <span class="price">350rs</span>
-          </div>
-          <p>Real Vermont maple syrup with a wood-fired finish.</p>
-        </div>
-        <!-- Item 3 -->
-        <div class="menu-item">
-          <div class="menu-item-header">
-            <h3>The Cold Brew Flight</h3>
-            <span class="price">450rs</span>
-          </div>
-          <p>Four 4oz pours of our rotating single-origin roasts.</p>
-        </div>
-        <!-- Item 4 -->
-        <div class="menu-item">
-          <div class="menu-item-header">
-            <h3>Espresso Tonic</h3>
-            <span class="price">220rs</span>
-          </div>
-          <p>A double shot of espresso over sparkling tonic water with a citrus twist.</p>
-        </div>
-        <!-- Item 5 -->
-        <div class="menu-item">
-          <div class="menu-item-header">
-            <h3>Cardamom Cloud</h3>
-            <span class="price">280rs</span>
-          </div>
-          <p>Spiced cardamom latte topped with a silky oat milk foam and saffron dust.</p>
-        </div>
-        <!-- Item 6 -->
-        <div class="menu-item">
-          <div class="menu-item-header">
-            <h3>Nitro Cold Brew</h3>
-            <span class="price">320rs</span>
-          </div>
-          <p>Smooth, velvety cold brew infused with nitrogen for a natural creamy sweetness.</p>
-        </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1000&auto=format&fit=crop"
+          alt="Exposed brick walls with Edison bulb pendant lights" loading="lazy">
       </div>
-    </section>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1525610553991-2bede1a236e2?q=80&w=1000&auto=format&fit=crop"
+          alt="Lifestyle shot of a leather-bound booth overlooking the busy city street" loading="lazy">
+      </div>
+    </div>
+  </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery reveal">
-      <div class="section-header">
-        <h2>The Vibe</h2>
-        <p>Industrial Chic meeting downtown warmth.</p>
-      </div>
-      <div class="gallery-grid">
-        <div class="gallery-item">
-          <!-- Close-up of Rosetta latte art in a matte black ceramic mug -->
-          <img src="https://images.unsplash.com/photo-1579992357154-faf4bde95b3d?q=80&w=1000&auto=format&fit=crop"
-            alt="Close-up of Rosetta latte art in a matte black ceramic mug" loading="lazy">
-        </div>
-        <div class="gallery-item">
-          <!-- Wide shot of exposed brick walls with Edison bulb pendant lights -->
-          <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1000&auto=format&fit=crop"
-            alt="Exposed brick walls with Edison bulb pendant lights" loading="lazy">
-        </div>
-        <div class="gallery-item">
-          <!-- Lifestyle shot of a leather-bound booth overlooking the busy city street -->
-          <img src="https://images.unsplash.com/photo-1525610553991-2bede1a236e2?q=80&w=1000&auto=format&fit=crop"
-            alt="Lifestyle shot of a leather-bound booth overlooking the busy city street" loading="lazy">
+  <!-- Footer / Location Section -->
+  <footer id="location" class="footer">
+    <div class="footer-grid">
+      <div class="footer-col" style="flex: 2; min-width: 300px;">
+        <h3>Visit Us</h3>
+        <div class="map-container"
+          style="margin-top: var(--space-sm); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15082.934893820253!2d73.22894335!3d19.1558712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be793096238b97d%3A0xe72dfb07802b2!2sBadlapur%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1709020000000!5m2!1sen!2sin"
+            width="100%" height="200" style="border:0; filter: grayscale(100%) invert(90%) hue-rotate(180deg);"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
         </div>
       </div>
-    </section>
+      <div class="footer-col">
+        <h3>Location</h3>
+        <p>Vedant Kalp Apt,<br>Katrap, Badlapur,<br>Maharashtra.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Hours</h3>
+        <p>Mon – Sun<br>7:00 AM – 6:00 PM</p>
+      </div>
+      <div class="footer-col social-links">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+          <a href="#">Facebook</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 The Midnight Roast. All rights reserved.</p>
+    </div>
+  </footer>
 
-    <!-- Footer / Location Section -->
-    <footer id="location" class="footer">
-      <div class="footer-grid">
-        <div class="footer-col" style="flex: 2; min-width: 300px;">
-          <h3>Visit Us</h3>
-          <div class="map-container"
-            style="margin-top: var(--space-sm); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15082.934893820253!2d73.22894335!3d19.1558712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be793096238b97d%3A0xe72dfb07802b2!2sBadlapur%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1709020000000!5m2!1sen!2sin"
-              width="100%" height="200" style="border:0; filter: grayscale(100%) invert(90%) hue-rotate(180deg);"
-              allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-          </div>
-        </div>
-        <div class="footer-col">
-          <h3>Location</h3>
-          <p>Vedant Kalp Apt,<br>Katrap, Badlapur,<br>Maharashtra.</p>
-        </div>
-        <div class="footer-col">
-          <h3>Hours</h3>
-          <p>Mon – Sun<br>7:00 AM – 6:00 PM</p>
-        </div>
-        <div class="footer-col social-links">
-          <h3>Follow Us</h3>
-          <div class="social-icons">
-            <a href="#">Instagram</a>
-            <a href="#">Twitter</a>
-            <a href="#">Facebook</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 The Midnight Roast. All rights reserved.</p>
-      </div>
-    </footer>
-  </main>
-  <script type="module" src="/src/main.js"></script>
+
+  <!-- Vanilla JS for navbar + scroll effects -->
+  <script type="module">
+    document.addEventListener('DOMContentLoaded', () => {
+      const navbar = document.querySelector('.navbar');
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const navLinks = document.querySelector('.nav-links');
+      const navItems = document.querySelectorAll('.nav-links a');
+
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuBtn.classList.toggle('active');
+        navLinks.classList.toggle('active');
+      });
+
+      navItems.forEach(item => {
+        item.addEventListener('click', () => {
+          mobileMenuBtn.classList.remove('active');
+          navLinks.classList.remove('active');
+        });
+      });
+
+      window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+      });
+
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' });
+          }
+        });
+      });
+
+      const revealElements = document.querySelectorAll('.reveal');
+      const revealOnScroll = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+
+      revealElements.forEach(el => revealOnScroll.observe(el));
+    });
+  </script>
 </body>
 
 </html>
