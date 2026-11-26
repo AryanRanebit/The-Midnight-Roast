@@ -170,53 +170,8 @@
   </footer>
 
 
-  <!-- Vanilla JS for navbar + scroll effects -->
-  <script type="module">
-    document.addEventListener('DOMContentLoaded', () => {
-      const navbar = document.querySelector('.navbar');
-      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-      const navLinks = document.querySelector('.nav-links');
-      const navItems = document.querySelectorAll('.nav-links a');
-
-      mobileMenuBtn.addEventListener('click', () => {
-        mobileMenuBtn.classList.toggle('active');
-        navLinks.classList.toggle('active');
-      });
-
-      navItems.forEach(item => {
-        item.addEventListener('click', () => {
-          mobileMenuBtn.classList.remove('active');
-          navLinks.classList.remove('active');
-        });
-      });
-
-      window.addEventListener('scroll', () => {
-        navbar.classList.toggle('scrolled', window.scrollY > 50);
-      });
-
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          if (target) {
-            window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' });
-          }
-        });
-      });
-
-      const revealElements = document.querySelectorAll('.reveal');
-      const revealOnScroll = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
-
-      revealElements.forEach(el => revealOnScroll.observe(el));
-    });
-  </script>
+  <!-- Page interactions live in one place: src/main.js. -->
+  <script type="module" src="/src/main.js"></script>
 </body>
 
 </html>
