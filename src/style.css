@@ -177,6 +177,11 @@ h1, h2, h3 { font-family: var(--display); font-variation-settings: 'opsz' 144, '
 .hero .hero-title { font-size: clamp(3rem, 5.6vw, 4.5rem); line-height: .95; letter-spacing: -.03em; margin: auto 0 0; padding-top: 0; }
 .hero .hero-title .the { position: static; display: block; transform: none; font-size: clamp(1.2rem, 2vw, 1.8rem); margin-bottom: .15em; }
 .hero .hero-title .l2 { margin-left: 0; }
+/* hero heading font: Cormorant Garamond italic (same size cap as the old site, 4.5rem) */
+.hero .hero-title, .hero .hero-title .the, .hero .hero-lede, .hero .hero-lede em { font-family: 'Cormorant Garamond', Georgia, serif; font-variation-settings: normal; font-style: italic; }
+.hero .hero-title { font-weight: 600; letter-spacing: -.01em; }
+.hero .hero-title .the { font-weight: 500; letter-spacing: .02em; }
+.hero .hero-lede { font-weight: 600; letter-spacing: 0; }
 .hero .hero-foot { padding-bottom: clamp(40px, 6vw, 80px); margin-top: 2rem; }
 .badge { position: absolute; z-index: 2; right: var(--pad); top: 17vh; width: clamp(96px, 11vw, 160px); aspect-ratio: 1; display: grid; place-items: center; }
 .badge > svg:first-child { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -398,3 +403,10 @@ h1, h2, h3 { font-family: var(--display); font-variation-settings: 'opsz' 144, '
   .tab-btn { padding: 6px; }
   .brand span { font-size: .85rem; }
 }
+/* calmer hero (preview): one clear left group, no falling beans / badge / hint */
+.hero #heroCanvas, .hero .badge, .hero .hero-hint { display: none; }
+.hero::before { background: linear-gradient(to right, rgba(28, 17, 11, .82) 0%, rgba(28, 17, 11, .5) 48%, rgba(28, 17, 11, .22) 100%), url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2000&auto=format&fit=crop') center / cover no-repeat; }
+.hero .hero-top .mono { letter-spacing: .22em; }
+.hero .hero-foot { grid-template-columns: 1fr; gap: 14px; justify-items: start; max-width: 34rem; padding-bottom: clamp(48px, 7vw, 96px); }
+.hero .hero-lede { font-size: clamp(1.25rem, 1.8vw, 1.6rem); }
+.hero .hero-sub { max-width: 36ch; }
