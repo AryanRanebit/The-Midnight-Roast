@@ -1,50 +1,60 @@
+
 # The Midnight Roast
 
-A single-page coffee-shop frontend built with HTML, CSS and plain JavaScript. Vite runs the development server and builds the production files. There is no backend, ordering system or payment flow.
+An interactive, slightly sarcastic website for The Midnight Roast, an artisanal coffee shop in Badlapur, Maharashtra.
+Built with Vite and vanilla JavaScript. No framework.
 
-## Run it locally
+## Run it
 
-Use Node.js 20.19+ or 22.12+ (required by the current Vite version).
+Requires Node.js 18 or newer.
 
-```sh
-npm ci
-npm run dev
+```bash
+npm install      # first time only
+npm run dev      # start dev server (usually http://localhost:5173)
+npm run build    # production build into /dist
+npm run preview  # serve the production build locally
 ```
 
-Open the local URL printed by Vite. Use the development server rather than double-clicking `index.html`, because the page uses a JavaScript module.
+Don't open `index.html` directly. Use the dev server or a built `dist`.
 
-```sh
-npm run build    # Create the production site in dist/
-npm run preview  # Preview that build locally
+## Features
+
+- **Bean cursor** with a trail of small beans. Clicks scatter beans. Touch devices get tap bursts instead.
+- **Hero bean pile**: real physics (gravity, collisions). The cursor shoves beans and clicks send up bursts.
+- **Scroll-driven roast**: one bean goes from green to dark as you scroll and cracks at the midpoint. The story copy follows the stages.
+- **Interactive menu**: hover or tap a drink to see it drawn in an animated glass. A "Roll the beans" button picks a random drink.
+- **Tab**: add drinks, adjust quantities, see the total in rs, copy the order. It is only an estimate, not a checkout. The tab is saved in `localStorage`.
+- **Latte art cup**: pour milk, etch with a toothpick, or watch "Show off" pour a rosetta.
+- **Visit section**: live open or closed status (India time), directions link, copy-address button, map embed.
+- Smooth scrolling (Lenis), parallax title, scrolling marquee, word-by-word heading reveals.
+- Responsive, keyboard accessible, and respects `prefers-reduced-motion`.
+
+## Project structure
+
+```
+index.html        Page markup
+src/
+  main.js         Entry: smooth scroll, nav, reveals, marquee, footer buttons
+  style.css       All styles and design tokens
+  beans.js        Bean sprite drawing and shared helpers
+  fx.js           Custom cursor, trail, click bursts
+  hero.js         Hero bean physics
+  roast.js        Scroll-driven roast section
+  menu.js         Menu data, glass illustrations, tab, randomizer
+  latte.js        Latte art canvas
 ```
 
-## Read the code in this order
+## Editing content
 
-1. **`index.html`**: page content, in display order: navigation, hero, story, six-drink menu, gallery and location/footer. Edit drink names, descriptions and prices here.
-2. **`src/style.css`**: appearance. The `:root` block holds colors, fonts, spacing and transition values. Named sections below it style the matching HTML sections. The final media query controls the mobile navigation at widths of 768px or less.
-3. **`src/main.js`**: page interactions. `initializePage()` connects four small setup functions:
-   - `initializeMobileMenu()`: opens the mobile navigation and closes it when a navigation link is chosen.
-   - `initializeNavbarScroll()`: switches the navbar style after scrolling 50px.
-   - `initializeAnchorScrolling()`: scrolls section links smoothly, with a 70px navbar offset.
-   - `initializeScrollReveals()`: reveals story, menu and gallery once as they enter the viewport.
-4. **`package.json`**: run/build commands and dependencies. `package-lock.json` records the installed versions; avoid editing it by hand.
+- **Menu items, prices, descriptions:** edit the `MENU` array at the top of `src/menu.js`. Each entry has a name, price (rs), description, a one-liner (`quip`) and the options that control how its glass is drawn.
+- **Social links:** the `SOCIALS` object at the top of `src/main.js` is empty. Add real URLs and the footer buttons will open them. Until then they show a "still brewing" message.
+- **Address and hours:** edit the footer in `index.html`. The open/closed status logic is `status()` in `src/main.js` (currently 7:00 AM to 6:00 PM IST).
+- **Colors:** change the CSS variables at the top of `src/style.css` (`--espresso`, `--cream`, `--ember` and so on).
+- **Copy:** all headings and jokes live in `index.html` and `src/menu.js`.
 
-The stylesheet is linked from HTML. The module script at the end of HTML loads `src/main.js`, so interactions have one source of truth instead of a separate inline copy.
+## Notes
 
-## Check a change
+- The map is a Google Maps embed and needs an internet connection.
+- Fonts (Fraunces, Instrument Sans, JetBrains Mono) are installed from npm via Fontsource, so nothing loads from Google Fonts.
 
-- Run `npm run build`.
-- At desktop and mobile widths, check the hero, story, six menu items, gallery and footer.
-- On mobile, open/close the menu and choose each navigation link.
-- Check that section links scroll, the navbar shrinks after scrolling, and revealed sections stay visible when you return to them.
-- Check the browser console. This repository does not yet include an automated test suite.
-
-Keep unrelated changes on a separate branch. Make a small pull request, explain what changed and ask the other person to review before merging.
-
-## Existing limitations, unchanged by this cleanup
-
-- Photos and fonts load from external services; the map is a Google Maps iframe. Network blocks can affect those resources.
-- Social links are placeholders (`href="#"`). Their existing click handler passes `#` to `querySelector`, which raises an invalid-selector error. Replacing those links or changing their behavior is separate from this readability pass.
-- The favicon points to `/vite.svg`, but that asset is not tracked.
-- The root `The-Midnight-Roast` entry is a Git submodule pointer with no `.gitmodules` configuration. It is not part of the running page and is left untouched. Do not run recursive submodule setup for this project.
-- Dependency audit findings need a separate update and regression check. This cleanup does not change dependency versions or the lockfile.
+&copy; 2026 The Midnight Roast. All rights reserved.

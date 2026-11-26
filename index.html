@@ -1,177 +1,256 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Midnight Roast | Artisanal Coffee</title>
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="/src/style.css" />
+  <meta name="description" content="The Midnight Roast: artisanal coffee in Badlapur. Sustainably sourced, perfectly roasted, mildly sarcastic." />
+  <meta name="theme-color" content="#1c110b" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231c110b'/%3E%3Cellipse cx='32' cy='32' rx='13' ry='20' transform='rotate(35 32 32)' fill='%23b0692b'/%3E%3Cpath d='M22 17 C36 26 28 38 42 47' stroke='%231c110b' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
 </head>
-
 <body>
-  <!-- Navbar -->
-  <header class="navbar" id="navbar">
-    <div class="logo">The Midnight Roast</div>
-    <nav class="nav-links">
+  <!-- Shared bean symbol -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="bean" viewBox="0 0 100 64">
+        <ellipse cx="50" cy="32" rx="46" ry="29" fill="currentColor"/>
+        <ellipse cx="38" cy="20" rx="22" ry="9" fill="#fff" opacity=".13" transform="rotate(-14 38 20)"/>
+        <path d="M9 36 C28 14 42 50 58 30 S84 22 92 28" fill="none" stroke="#1c110b" stroke-opacity=".78" stroke-width="5" stroke-linecap="round"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <a class="skip" href="#menu">Skip to the menu (we get it)</a>
+
+  <!-- Custom cursor -->
+  <div class="cursor" aria-hidden="true"><svg viewBox="0 0 100 64"><use href="#bean"/></svg><span class="cursor-label"></span></div>
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div class="progress" aria-hidden="true"><i></i><svg viewBox="0 0 100 64"><use href="#bean"/></svg></div>
+
+  <!-- Floating pill nav -->
+  <header class="nav" id="nav">
+    <a class="brand" href="#home" aria-label="The Midnight Roast, back to top">
+      <svg viewBox="0 0 100 64"><use href="#bean"/></svg>
+      <span>The Midnight Roast</span>
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
       <a href="#about">Our Story</a>
       <a href="#menu">Menu</a>
-      <a href="#gallery">Gallery</a>
+      <a href="#vibe">The Vibe</a>
       <a href="#location">Visit Us</a>
     </nav>
-    <button class="mobile-menu-btn" aria-label="Toggle Menu">
-      <span></span>
-      <span></span>
-      <span></span>
+    <button class="tab-btn" id="tabBtn" aria-expanded="false" aria-controls="tabPanel">
+      <span class="tab-label">Tab</span>
+      <b id="tabCount">0</b>
     </button>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero" id="home">
-    <div class="hero-bg"></div>
-    <div class="hero-content">
-      <h1>The Midnight Roast</h1>
-      <p>Artisanal coffee sustainably sourced and perfectly roasted to awaken your senses.</p>
-      <a href="#menu" class="btn btn-primary">Explore Menu</a>
+  <!-- Tab (order estimate) -->
+  <aside class="tab-panel" id="tabPanel" aria-label="Your tab" hidden>
+    <div class="tab-head">
+      <h3>Your tab</h3>
+      <button class="x" id="tabClose" aria-label="Close tab">&times;</button>
     </div>
-  </section>
-  <!-- About Section -->
-  <section id="about" class="about reveal">
-    <div class="about-container">
-      <div class="about-image">
-        <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=1000&auto=format&fit=crop"
-          alt="Coffee roasting process showing beans being roasted" loading="lazy">
-      </div>
-      <div class="about-content">
-        <h2>Our Story &amp; Ethos</h2>
-        <p>At The Midnight Roast, we believe that every cup of coffee tells a story. From the high-altitude farms
-          where our beans are ethically sourced, to the meticulous roasting process in our downtown industrial space.
-        </p>
-        <p>Our commitment is not just to unparalleled quality, but to the community and environment that sustains us.
-          We partner directly with farmers to ensure fair wages and sustainable agricultural practices.</p>
-      </div>
+    <ul class="tab-list" id="tabList"></ul>
+    <p class="tab-empty" id="tabEmpty">Empty. Your productivity is calling.</p>
+    <div class="tab-total"><span>Total</span><b id="tabTotal">0rs</b></div>
+    <div class="tab-actions">
+      <button class="btn btn-ghost" id="tabClear">Clear</button>
+      <button class="btn" id="tabCopy">Copy my order</button>
     </div>
-  </section>
+    <p class="tab-note">Just maths, not a checkout. Show or send your order to the shop.</p>
+  </aside>
 
-  <!-- Menu Section -->
-  <section id="menu" class="menu reveal">
-    <div class="section-header">
-      <h2>Seasonal Menu</h2>
-      <p>Curated selections highlighting the finest roasts.</p>
-    </div>
-    <div class="menu-grid">
-      <div class="menu-item">
-        <div class="menu-item-header">
-          <h3>Midnight Mocha</h3>
-          <span class="price">200rs</span>
-        </div>
-        <p>Dark chocolate, espresso, and a hint of smoked sea salt.</p>
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <canvas id="heroCanvas" aria-hidden="true"></canvas>
+      <div class="hero-top">
+        <span class="mono">Artisanal coffee &middot; Badlapur</span>
+        <span class="mono hero-hint"><i class="dot"></i> Go on. Click. Poke the beans.</span>
       </div>
-      <div class="menu-item">
-        <div class="menu-item-header">
-          <h3>Maple Bourbon Latte</h3>
-          <span class="price">350rs</span>
-        </div>
-        <p>Real Vermont maple syrup with a wood-fired finish.</p>
-      </div>
-      <div class="menu-item">
-        <div class="menu-item-header">
-          <h3>The Cold Brew Flight</h3>
-          <span class="price">450rs</span>
-        </div>
-        <p>Four 4oz pours of our rotating single-origin roasts.</p>
-      </div>
-      <div class="menu-item">
-        <div class="menu-item-header">
-          <h3>Espresso Tonic</h3>
-          <span class="price">220rs</span>
-        </div>
-        <p>A double shot of espresso over sparkling tonic water with a citrus twist.</p>
-      </div>
-      <div class="menu-item">
-        <div class="menu-item-header">
-          <h3>Cardamom Cloud</h3>
-          <span class="price">280rs</span>
-        </div>
-        <p>Spiced cardamom latte topped with a silky oat milk foam and saffron dust.</p>
-      </div>
-      <div class="menu-item">
-        <div class="menu-item-header">
-          <h3>Nitro Cold Brew</h3>
-          <span class="price">320rs</span>
-        </div>
-        <p>Smooth, velvety cold brew infused with nitrogen for a natural creamy sweetness.</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- Gallery Section -->
-  <section id="gallery" class="gallery reveal">
-    <div class="section-header">
-      <h2>The Vibe</h2>
-      <p>Industrial Chic meeting downtown warmth.</p>
-    </div>
-    <div class="gallery-grid">
-      <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1579992357154-faf4bde95b3d?q=80&w=1000&auto=format&fit=crop"
-          alt="Close-up of Rosetta latte art in a matte black ceramic mug" loading="lazy">
-      </div>
-      <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1000&auto=format&fit=crop"
-          alt="Exposed brick walls with Edison bulb pendant lights" loading="lazy">
-      </div>
-      <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1525610553991-2bede1a236e2?q=80&w=1000&auto=format&fit=crop"
-          alt="Lifestyle shot of a leather-bound booth overlooking the busy city street" loading="lazy">
-      </div>
-    </div>
-  </section>
+      <h1 class="hero-title" aria-label="The Midnight Roast">
+        <span class="the" aria-hidden="true">The</span>
+        <span class="line l1" data-dir="-1" aria-hidden="true">Midnight</span>
+        <span class="line l2" data-dir="1" aria-hidden="true">R<button class="o-bean" id="oBean" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 100 64"><use href="#bean"/></svg></button>ast</span>
+      </h1>
 
-  <!-- Footer / Location Section -->
-  <footer id="location" class="footer">
-    <div class="footer-grid">
-      <div class="footer-col" style="flex: 2; min-width: 300px;">
-        <h3>Visit Us</h3>
-        <div class="map-container"
-          style="margin-top: var(--space-sm); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15082.934893820253!2d73.22894335!3d19.1558712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be793096238b97d%3A0xe72dfb07802b2!2sBadlapur%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1709020000000!5m2!1sen!2sin"
-            width="100%" height="200" style="border:0; filter: grayscale(100%) invert(90%) hue-rotate(180deg);"
-            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
+      <div class="hero-foot">
+        <p class="hero-lede">We take our coffee seriously.<br><em>Ourselves? Not so much.</em></p>
+        <p class="hero-sub">Artisanal beans, sustainably sourced and roasted until they&rsquo;re ready to wake you up. Whether you asked or not.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#menu" data-cursor="Drink">See the menu</a>
+          <a class="btn btn-ghost" href="#location" data-cursor="Come in">Find the shop</a>
         </div>
       </div>
-      <div class="footer-col">
-        <h3>Location</h3>
-        <p>Vedant Kalp Apt,<br>Katrap, Badlapur,<br>Maharashtra.</p>
+
+      <div class="badge" aria-hidden="true">
+        <svg viewBox="0 0 200 200">
+          <defs><path id="circ" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs>
+          <text><textPath href="#circ" startOffset="0">Freshly roasted &#8226; Sustainably sourced &#8226; Mildly sarcastic &#8226;</textPath></text>
+        </svg>
+        <svg class="badge-bean" viewBox="0 0 100 64"><use href="#bean"/></svg>
       </div>
-      <div class="footer-col">
-        <h3>Hours</h3>
-        <p>Mon – Sun<br>7:00 AM – 6:00 PM</p>
-      </div>
-      <div class="footer-col social-links">
-        <h3>Follow Us</h3>
-        <div class="social-icons">
-          <a href="#">Instagram</a>
-          <a href="#">Twitter</a>
-          <a href="#">Facebook</a>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="band" id="band" aria-label="A few things we believe">
+      <div class="band-track" id="bandTrack">
+        <div class="band-run">
+          <span>We take our coffee seriously. Ourselves? Not so much.</span><svg viewBox="0 0 100 64"><use href="#bean"/></svg>
+          <span>Decaf? We don&rsquo;t judge. Much.</span><svg viewBox="0 0 100 64"><use href="#bean"/></svg>
+          <span>Your productivity called. It wants another cup.</span><svg viewBox="0 0 100 64"><use href="#bean"/></svg>
+          <span>Open 7 to 6, every single day.</span><svg viewBox="0 0 100 64"><use href="#bean"/></svg>
         </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 The Midnight Roast. All rights reserved.</p>
+
+    <!-- STORY: scroll-driven roast -->
+    <section class="roast" id="about">
+      <div class="roast-track" id="roastTrack">
+        <div class="roast-sticky">
+          <div class="roast-head">
+            <span class="mono">Our story &amp; ethos</span>
+            <h2 data-split>From green and grumpy to dark and dependable.</h2>
+          </div>
+
+          <div class="roast-stage">
+            <button class="big-bean" id="bigBean" aria-label="Poke the bean">
+              <svg viewBox="0 0 400 300" id="bigBeanSvg">
+                <circle class="ring" cx="200" cy="150" r="120" />
+                <g class="bean-body">
+                  <ellipse class="b-fill" cx="200" cy="150" rx="170" ry="108" />
+                  <ellipse class="b-shine" cx="150" cy="96" rx="82" ry="32" transform="rotate(-14 150 96)" />
+                  <path class="b-crease" d="M44 168 C118 70 170 226 236 134 S338 106 362 128" />
+                </g>
+              </svg>
+            </button>
+            <div class="meter" aria-hidden="true">
+              <div class="meter-bar"><i id="meterFill"></i></div>
+              <ol id="meterLabels">
+                <li>Green</li><li>Light</li><li>Medium</li><li>Dark</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="roast-copy" id="roastCopy">
+            <article class="stage is-on">
+              <h3>Green.</h3>
+              <p>It all starts at high-altitude farms, where our beans are ethically sourced. At this point they look nothing like coffee. Honestly, same as us before the first cup.</p>
+            </article>
+            <article class="stage">
+              <h3>Handshake.</h3>
+              <p>We partner directly with the farmers. Fair wages, sustainable agricultural practices, and no mystery in the supply chain.</p>
+            </article>
+            <article class="stage">
+              <h3>First crack.</h3>
+              <p>Then the roast, done meticulously in our downtown industrial space. Somewhere around here the bean cracks under pressure. Deeply relatable.</p>
+            </article>
+            <article class="stage">
+              <h3>Cup.</h3>
+              <p>Unparalleled quality is the baseline. The community and the environment that sustain us are the point. Every cup tells a story. This was the short version.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section class="menu" id="menu">
+      <div class="menu-head">
+        <span class="mono">Seasonal menu</span>
+        <h2 data-split>Strong opinions. Seasonal menu.</h2>
+        <p>Curated selections highlighting the finest roasts. Hover or tap to peek into a glass, add what you like to your tab, and do the maths before the barista does.</p>
+        <button class="btn btn-ghost roll" id="roll" data-cursor="Roll">Can&rsquo;t decide? Roll the beans</button>
+      </div>
+
+      <div class="menu-body">
+        <ol class="menu-list" id="menuList"></ol>
+
+        <div class="menu-aside" id="menuAside">
+          <div class="plate">
+            <div class="orbit" aria-hidden="true">
+              <svg viewBox="0 0 100 64"><use href="#bean"/></svg>
+              <svg viewBox="0 0 100 64"><use href="#bean"/></svg>
+              <svg viewBox="0 0 100 64"><use href="#bean"/></svg>
+              <svg viewBox="0 0 100 64"><use href="#bean"/></svg>
+              <svg viewBox="0 0 100 64"><use href="#bean"/></svg>
+            </div>
+            <div class="glass" id="glass" aria-hidden="true"></div>
+          </div>
+          <div class="aside-info">
+            <span class="mono" id="asideIdx">01 / 06</span>
+            <h3 id="asideName">Midnight Mocha</h3>
+            <p id="asideDesc"></p>
+            <button class="btn" id="asideAdd" data-cursor="Add">Add to tab</button>
+          </div>
+        </div>
+      </div>
+      <p class="menu-foot">Decaf? We don&rsquo;t judge. Much.</p>
+    </section>
+
+    <!-- VIBE: latte art -->
+    <section class="vibe" id="vibe">
+      <div class="vibe-copy">
+        <span class="mono">The vibe</span>
+        <h2 data-split>Industrial chic, with downtown warmth.</h2>
+        <p>Exposed brick. Edison bulbs. A leather booth overlooking the busy street. We&rsquo;d show you photos, but you&rsquo;d rather ruin a perfectly good cup of latte art. Be our guest.</p>
+        <div class="tools" role="group" aria-label="Latte art tools">
+          <button class="chip is-on" data-tool="pour" aria-pressed="true">Pour</button>
+          <button class="chip" data-tool="etch" aria-pressed="false">Etch</button>
+          <button class="chip" id="showoff">Show off</button>
+          <button class="chip" id="wipe">Wipe</button>
+        </div>
+        <p class="review" id="review" aria-live="polite">Drag in the cup to pour. Switch to Etch to drag a toothpick through it.</p>
+      </div>
+      <div class="cup-wrap">
+        <canvas id="latte" width="560" height="560" aria-label="Interactive latte art cup. Drag to pour milk."></canvas>
+      </div>
+    </section>
+  </main>
+
+  <!-- VISIT -->
+  <footer class="visit" id="location">
+    <div class="visit-top">
+      <h2 data-split>Come through.</h2>
+      <p class="status" id="status"><i class="dot"></i><span>Checking if we&rsquo;re open&hellip;</span></p>
     </div>
+    <div class="visit-grid">
+      <div class="col">
+        <h3 class="mono">Location</h3>
+        <address id="address">Vedant Kalp Apt,<br>Katrap, Badlapur,<br>Maharashtra.</address>
+        <div class="btns">
+          <a class="btn" id="directions" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Vedant+Kalp+Apt+Katrap+Badlapur+Maharashtra" data-cursor="Go">Get directions</a>
+          <button class="btn btn-ghost" id="copyAddr">Copy address</button>
+        </div>
+      </div>
+      <div class="col">
+        <h3 class="mono">Hours</h3>
+        <p class="hours">Mon &ndash; Sun<br>7:00 AM &ndash; 6:00 PM</p>
+        <p class="small">Yes, every day. We have no life. We have coffee.</p>
+      </div>
+      <div class="col">
+        <h3 class="mono">Follow us</h3>
+        <ul class="socials">
+          <li><button data-social="Instagram">Instagram <span>&nearr;</span></button></li>
+          <li><button data-social="Twitter">Twitter <span>&nearr;</span></button></li>
+          <li><button data-social="Facebook">Facebook <span>&nearr;</span></button></li>
+        </ul>
+      </div>
+      <div class="col map">
+        <iframe title="Map of Badlapur, Maharashtra"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15082.934893820253!2d73.22894335!3d19.1558712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be793096238b97d%3A0xe72dfb07802b2!2sBadlapur%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1709020000000!5m2!1sen!2sin"
+          loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+    <div class="visit-word" aria-hidden="true">The Midnight Roast</div>
+    <p class="legal">&copy; 2026 The Midnight Roast. All rights reserved. <button class="link" id="toTop">Back to top</button></p>
   </footer>
 
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <!-- Page interactions live in one place: src/main.js. -->
   <script type="module" src="/src/main.js"></script>
 </body>
-
 </html>
