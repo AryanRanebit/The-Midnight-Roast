@@ -143,7 +143,7 @@ h1, h2, h3 { font-family: var(--display); font-variation-settings: 'opsz' 144, '
 .in .w > span, [data-split].in .w > span { transform: none; }
 
 /* ---------- hero ---------- */
-.hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: space-between; padding: 92px var(--pad) 26px; background: var(--paper); color: var(--ink); overflow: hidden; }
+.hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: space-between; padding: 92px var(--pad) 26px; background: var(--espresso); color: var(--cream); overflow: hidden; }
 #heroCanvas { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .hero-top { display: flex; justify-content: space-between; gap: 16px; position: relative; z-index: 2; }
 .hero-hint { opacity: .75; text-align: right; }
@@ -158,6 +158,21 @@ h1, h2, h3 { font-family: var(--display); font-variation-settings: 'opsz' 144, '
 .hero-lede em { font-weight: 500; color: var(--caramel); }
 .hero-sub { max-width: 36ch; opacity: .85; }
 .hero-cta { display: flex; gap: 10px; flex-wrap: wrap; }
+/* cafe photo hero (original look): photo + dark overlay behind the interactive beans */
+.hero::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(to right, rgba(28, 17, 11, .9) 0%, rgba(28, 17, 11, .62) 50%, rgba(28, 17, 11, .34) 100%),
+    url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2000&auto=format&fit=crop') center / cover no-repeat; }
+.hero .hero-title .the { color: var(--crema); }
+.hero .o-bean { color: var(--cream); }
+.hero .hero-lede em { color: var(--crema); }
+.hero .badge text { fill: var(--cream); }
+.hero .badge-bean { color: var(--ember); }
+.hero .hero-cta .btn:not(.btn-ghost) { background: var(--ember); border-color: var(--ember); color: var(--espresso); }
+.hero .hero-cta .btn:not(.btn-ghost)::before { background: var(--crema); }
+.hero .hero-cta .btn:not(.btn-ghost):hover { border-color: var(--crema); }
+.hero .btn-ghost { color: var(--cream); }
+.hero .btn-ghost:hover { color: var(--espresso); border-color: var(--cream); }
+.hero .btn-ghost::before { background: var(--cream); }
 .badge { position: absolute; z-index: 2; right: var(--pad); top: 17vh; width: clamp(96px, 11vw, 160px); aspect-ratio: 1; display: grid; place-items: center; }
 .badge > svg:first-child { position: absolute; inset: 0; width: 100%; height: 100%; }
 .badge text { font: 500 15.5px var(--mono); letter-spacing: .16em; text-transform: uppercase; fill: var(--ink); }
