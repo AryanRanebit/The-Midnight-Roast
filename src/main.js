@@ -4,6 +4,8 @@ import '@fontsource/instrument-sans/400.css';
 import '@fontsource/instrument-sans/500.css';
 import '@fontsource/instrument-sans/600.css';
 import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/cormorant-garamond/500-italic.css';
+import '@fontsource/cormorant-garamond/600-italic.css';
 import './style.css';
 import Lenis from 'lenis';
 import { reduceMotion, toast, clamp } from './beans.js';
